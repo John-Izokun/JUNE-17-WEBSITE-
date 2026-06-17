@@ -343,9 +343,9 @@ h3 { font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-weight: 600; }
 .hero {
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
+  grid-template-columns: 1.28fr 0.72fr;
   align-items: center;
-  gap: 4.5rem;
+  gap: 4rem;
   padding: 8rem 2rem 4rem;
   max-width: var(--max-w);
   margin: 0 auto;
@@ -388,6 +388,11 @@ h3 { font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-weight: 600; }
   color: var(--accent);
   font-style: italic;
   font-weight: 500;
+}
+/* Lock the headline to 4 lines (2 setup + 2 payoff) on desktop/laptop;
+   let it wrap naturally on narrow phones to avoid overflow. */
+@media (max-width: 600px) {
+  .hero-title .hero-br { display: none; }
 }
 .hero-sub-lead {
   font-size: 1.22rem;

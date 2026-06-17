@@ -24,13 +24,13 @@ export default function Hero({ onBookCall }: HeroProps) {
           </div>
 
           <h1 className="hero-title">
-            Your estimator only sees<br />
-            <span className="hero-title-accent">brands your floor can run.</span>
+            We fill your open<br className="hero-br" />capacity with<br />
+            <span className="hero-title-accent">brands that need<br className="hero-br" />production now.</span>
           </h1>
 
           <p className="hero-sub-lead">
-            Open capacity only pays when it&apos;s running. We fill idle co-packing and
-            manufacturing lines with DTC brands that are actively selling out.
+            Open capacity only pays when it&apos;s running — and a brand that&apos;s already
+            stocking out is proven demand, ready to move now.
           </p>
 
           <p className="hero-sub">
