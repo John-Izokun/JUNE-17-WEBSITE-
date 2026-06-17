@@ -27,11 +27,11 @@ const CARDS = [
     countSuffix: '',
     countLabel: 'Storefronts indexed',
     details: [
-      'products.json API — live inventory',
-      'Shopify .js variant verification',
-      'Multi-product detection (up to 3)',
-      'False positive filtering built in',
-      'Concurrency=20 per scan run',
+      'Live inventory tracking',
+      'Variant-level stock detection',
+      'Multi-product detection per brand',
+      'False-positive filtering built in',
+      'Continuous re-scan cadence',
     ],
   },
   {
@@ -39,27 +39,27 @@ const CARDS = [
     label: 'Amazon Detection',
     countTarget: 412,
     countSuffix: '',
-    countLabel: 'OOS ASINs tracked',
+    countLabel: 'Stock-outs flagged',
     details: [
-      'Apify scraper — bot-proof proxies',
-      'Availability text parsing',
-      'Brand URL extraction (HIGH conf)',
-      'Domain confidence scoring',
-      'Weekly scan cadence',
+      'Real-time availability checks',
+      'Stock-status verification',
+      'Brand-to-domain matching',
+      'Confidence scoring on every signal',
+      'Continuous coverage',
     ],
   },
   {
     color: 'amber',
-    label: 'Apollo Enrichment',
+    label: 'Decision-Maker Match',
     countTarget: 8340,
     countSuffix: '',
-    countLabel: 'Contacts enriched',
+    countLabel: 'Decision-makers identified',
     details: [
       'Founder / COO / CEO targeting',
-      'Verified work email reveal',
-      'Domain cache — no repeat charges',
-      '1 contact per domain cap',
-      'LOW confidence routed to review',
+      'Verified work-email matching',
+      'One decision-maker per brand',
+      'No duplicate outreach',
+      'Low-confidence routed to manual review',
     ],
   },
 ]
@@ -101,8 +101,8 @@ export default function Intelligence() {
           Three data sources. One routing system.
         </h2>
         <p className="section-sub">
-          The engine runs on live API calls, not scraping guesses. Every signal is
-          verified against the original inventory source before anything is routed.
+          Every signal is verified against the live source before anything reaches
+          your team — no stale lists, no guesswork, no bad-fit leads.
         </p>
 
         <div className="intel-grid">
@@ -160,11 +160,11 @@ export default function Intelligence() {
               Pipeline
             </div>
             <div style={{ fontSize: '0.9rem', color: 'var(--muted)' }}>
-              Apollo list build → Shopify scan → Amazon signals → Apollo enrichment → Instantly delivery
+              Continuous monitoring → verified stock-out → decision-maker match → estimator-cleared RFQ routed to your team
             </div>
           </div>
           <div style={{ display: 'flex', gap: '0.5rem', flexShrink: 0 }}>
-            {['Python', 'Playwright', 'Apify', 'Apollo', 'Instantly'].map(tag => (
+            {['Live monitoring', 'Verified OOS', 'Decision-maker match', 'Estimator-cleared'].map(tag => (
               <span key={tag} style={{
                 fontFamily: 'var(--mono)',
                 fontSize: '10px',

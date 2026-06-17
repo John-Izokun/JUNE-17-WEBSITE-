@@ -9,20 +9,20 @@ function TerminalMockup() {
         <span className="hiw-mockup-title">signal-line — demand-radar</span>
       </div>
       <div className="hiw-mockup-body">
-        <div className="terminal-line"><span className="t-g">✓</span> Loaded <span className="t-w">412</span> Shopify domains</div>
-        <div className="terminal-line"><span className="t-g">✓</span> products.json fast path · concurrency=20</div>
+        <div className="terminal-line"><span className="t-g">✓</span> Monitoring <span className="t-w">10,000+</span> DTC storefronts</div>
+        <div className="terminal-line"><span className="t-g">✓</span> Shopify + Amazon · live coverage</div>
         <div className="terminal-line">&nbsp;</div>
-        <div className="terminal-line"><span className="t-g">[PASS]</span> gainful.com — inventory OK</div>
-        <div className="terminal-line"><span className="t-g">[PASS]</span> ritual.com — inventory OK</div>
+        <div className="terminal-line"><span className="t-g">[SCAN]</span> gainful.com — in stock</div>
+        <div className="terminal-line"><span className="t-g">[SCAN]</span> ritual.com — in stock</div>
         <div className="terminal-line"><span className="t-y">[ALERT]</span> <span className="t-w">neonnutra.com</span></div>
         <div className="terminal-line">&nbsp; product: <span className="t-c">"Ashwagandha Gummies 60ct"</span></div>
         <div className="terminal-line">&nbsp; status:  <span className="t-r">OUT_OF_STOCK</span></div>
-        <div className="terminal-line">&nbsp; signal:  <span className="t-y">Shopify .js API verified</span></div>
+        <div className="terminal-line">&nbsp; signal:  <span className="t-y">verified · live</span></div>
         <div className="terminal-line"><span className="t-y">[ALERT]</span> <span className="t-w">vitalrootslabs.com</span></div>
         <div className="terminal-line">&nbsp; product: <span className="t-c">"Creatine Gummies 90ct"</span></div>
         <div className="terminal-line">&nbsp; status:  <span className="t-r">OUT_OF_STOCK · day 9</span></div>
         <div className="terminal-line">&nbsp;</div>
-        <div className="terminal-line"><span className="t-g">Scan complete · 17 signals / 412 domains</span></div>
+        <div className="terminal-line"><span className="t-g">Scan complete · 17 signals flagged today</span></div>
       </div>
     </div>
   )
@@ -139,8 +139,8 @@ const PHASES = [
   {
     num: '01 / DETECT',
     title: 'The radar finds brands bleeding revenue',
-    desc: 'Our engine hits the Shopify products.json API across 10,000+ DTC storefronts. When every variant of a product shows available: false, we log it. Live inventory data — no guesswork, no scraping.',
-    tags: ['Shopify API', 'Amazon signals', 'Verified OOS', '~0.5s per domain'],
+    desc: 'Our radar continuously monitors 10,000+ DTC storefronts across Shopify and Amazon. The moment a product sells out, we catch it — every signal verified against the live source, never guessed.',
+    tags: ['Live monitoring', 'Shopify + Amazon', 'Verified OOS', '24/7 coverage'],
     Mockup: TerminalMockup,
   },
   {

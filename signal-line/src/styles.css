@@ -694,9 +694,9 @@ h3 { font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-weight: 600; }
 }
 .problem-content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  align-items: start;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 3.5rem;
+  align-items: center;
 }
 .problem-stat-card {
   background: var(--card);
@@ -708,7 +708,7 @@ h3 { font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-weight: 600; }
 .problem-stat-label { margin-bottom: 0.5rem; }
 .problem-stat-num {
   font-family: var(--display);
-  font-size: 3.6rem;
+  font-size: clamp(3.8rem, 4.8vw, 4.8rem);
   font-weight: 600;
   color: var(--red);
   line-height: 1;

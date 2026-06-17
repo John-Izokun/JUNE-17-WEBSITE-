@@ -6,7 +6,7 @@ const STEPS = [
     num: '01',
     label: 'Detection',
     title: 'Stock-out confirmed',
-    desc: 'Our scanner detects your product going OOS via Shopify\'s live inventory API. Verified within hours, not days.',
+    desc: 'Our radar detects your product going out of stock the moment it happens — verified live, within hours, not days.',
     time: 'Within 24 hours of stock-out',
     active: true,
   },
