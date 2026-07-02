@@ -62,9 +62,9 @@ export default function ScannerFeed() {
       <div className="scanner-header">
         <div className="scanner-header-left">
           <div className="scanner-dot" />
-          <span className="scanner-title">DEMAND RADAR — LIVE SCAN</span>
+          <span className="scanner-title">LIVE · BRANDS SELLING OUT NOW</span>
         </div>
-        <span className="scanner-count">{totalScanned.toLocaleString()} domains</span>
+        <span className="scanner-count">{totalScanned.toLocaleString()} checked</span>
       </div>
 
       <div className="scanner-body">
@@ -93,9 +93,9 @@ export default function ScannerFeed() {
 
       <div className="scanner-footer">
         <span className="scanner-footer-stat">
-          <span>{oosFound}</span> signals detected this scan
+          <span>{oosFound}</span> brands need production today
         </span>
-        <span className="scanner-footer-stat">Shopify + Amazon</span>
+        <span className="scanner-footer-stat">Shopify + Amazon storefronts</span>
       </div>
     </div>
   )

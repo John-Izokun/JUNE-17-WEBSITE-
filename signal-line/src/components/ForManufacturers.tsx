@@ -15,7 +15,23 @@ export default function ForManufacturers() {
   const inView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section className="section for-mfr" ref={ref} id="for-manufacturers">
+    <section className="section for-mfr" ref={ref} id="for-manufacturers" style={{ paddingTop: 0 }}>
+      <div className="stat-band">
+        <div className="container stat-band-grid">
+          {[
+            { num: '10,000+', label: 'Storefronts monitored' },
+            { num: '<24h', label: 'Detection to routing' },
+            { num: '6/6', label: 'Checks before routing' },
+            { num: '$0', label: 'Commission on closes' },
+          ].map(({ num, label }) => (
+            <div key={label} className="stat-band-item">
+              <div className="stat-band-num">{num}</div>
+              <div className="stat-band-label">{label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       <div className="container">
         <div className="for-mfr-grid">
           <motion.div
@@ -24,7 +40,7 @@ export default function ForManufacturers() {
             transition={{ duration: 0.6 }}
           >
             <div className="section-label">
-              <span className="label label-purple">For Manufacturers &amp; Co-packers</span>
+              <span className="label label-purple">03 · For Manufacturers &amp; Co-packers</span>
             </div>
             <h2 className="section-title" style={{ marginBottom: '1rem' }}>
               Your quoting team only sees the ones that fit.
@@ -35,7 +51,7 @@ export default function ForManufacturers() {
               Bad-fit conversations become impossible.
             </p>
 
-            <div className="rfq-card" style={{ marginBottom: '2rem' }}>
+            <div className="rfq-card tilt-l" style={{ marginBottom: '2rem' }}>
               <div className="rfq-card-header">
                 <span className="rfq-card-title">Estimator-Cleared RFQ</span>
                 <span className="rfq-routed-badge">● ROUTED</span>

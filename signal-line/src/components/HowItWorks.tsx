@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 
 function TerminalMockup() {
   return (
-    <div className="hiw-mockup">
+    <div className="hiw-mockup tilt-r">
       <div className="hiw-mockup-header">
         <div className="traffic-lights"><span /><span /><span /></div>
         <span className="hiw-mockup-title">signal-line — demand-radar</span>
@@ -30,7 +30,7 @@ function TerminalMockup() {
 
 function MatrixMockup() {
   return (
-    <div className="hiw-mockup">
+    <div className="hiw-mockup tilt-r">
       <div className="hiw-mockup-header">
         <div className="traffic-lights"><span /><span /><span /></div>
         <span className="hiw-mockup-title">qualification-matrix — neonnutra.com</span>
@@ -95,7 +95,7 @@ function MatrixMockup() {
 
 function EmailMockup() {
   return (
-    <div className="hiw-mockup">
+    <div className="hiw-mockup tilt-r">
       <div className="hiw-mockup-header">
         <div className="traffic-lights"><span /><span /><span /></div>
         <span className="hiw-mockup-title">outreach — sarah@neonnutra.com</span>
@@ -169,6 +169,25 @@ export default function HowItWorks() {
 
   return (
     <section id="how-it-works">
+      <div className="hiw-intro container">
+        <div className="section-label">
+          <span className="label label-purple">02 · How It Works</span>
+        </div>
+        <h2 className="section-title">
+          From live stock-out to<br />estimator-cleared RFQ.
+        </h2>
+        <p className="section-sub" style={{ marginBottom: '1.6rem' }}>
+          Three moves. No cold lists, no directories, no chasing — the system detects
+          real demand, kills every bad fit, and routes only what your floor can run.
+        </p>
+        <div className="hiw-intro-chips">
+          <span className="hiw-intro-chip"><b>01</b> Detect the stock-out</span>
+          <span className="hiw-intro-chip"><b>02</b> Qualify against your floor</span>
+          <span className="hiw-intro-chip"><b>03</b> Route the RFQ to you</span>
+        </div>
+        <div className="hiw-scroll-hint">Keep scrolling — the system walks itself</div>
+      </div>
+
       <div ref={containerRef} style={{ height: '300vh', position: 'relative' }}>
         <div className="hiw-sticky">
           <motion.div className="hiw-track" style={{ x }}>

@@ -76,7 +76,7 @@ export default function Problem() {
     <section className="section problem-section" ref={ref} id="problem">
       <div className="container">
         <div className="section-label">
-          <span className="label label-purple">The Problem</span>
+          <span className="label label-purple">01 · The Problem</span>
         </div>
         <h2 className="section-title">
           {tab === 'manufacturers'
@@ -204,6 +204,13 @@ export default function Problem() {
             </motion.div>
           )}
         </AnimatePresence>
+
+        <div className="pullquote">
+          <div className="pullquote-text">
+            &ldquo;You quote. <span>We route.</span>&rdquo;
+          </div>
+          <div className="pullquote-cap">The whole model — in four words</div>
+        </div>
       </div>
     </section>
   )
