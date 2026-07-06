@@ -40,6 +40,12 @@ const CHANNELS = [
     desc: 'They skim 5–8% of every contract — even the ones your team sourced, quoted, and closed. Your margin keeps paying for one introduction, contract after contract.',
   },
   {
+    name: 'Directories & marketplaces',
+    tag: 'You wait',
+    good: false,
+    desc: 'You become profile #4,000-something and wait to be searched. The platform owns the relationship — and a brand in a real stock-out isn\'t browsing profiles, it\'s answering whoever reaches it first.',
+  },
+  {
     name: 'Signal & Line',
     tag: 'Estimator-cleared',
     good: true,
@@ -92,10 +98,10 @@ export default function Problem() {
         </p>
 
         <div className="problem-tabs">
-          <button className={`problem-tab ${tab === 'manufacturers' ? 'active' : ''}`} onClick={() => setTab('manufacturers')}>
+          <button className={`problem-tab ${tab === 'manufacturers' ? 'active' : ''}`} aria-pressed={tab === 'manufacturers'} onClick={() => setTab('manufacturers')}>
             For Manufacturers
           </button>
-          <button className={`problem-tab ${tab === 'brands' ? 'active' : ''}`} onClick={() => setTab('brands')}>
+          <button className={`problem-tab ${tab === 'brands' ? 'active' : ''}`} aria-pressed={tab === 'brands'} onClick={() => setTab('brands')}>
             For Brands
           </button>
         </div>

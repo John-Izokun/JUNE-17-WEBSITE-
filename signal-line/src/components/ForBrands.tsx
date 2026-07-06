@@ -7,7 +7,7 @@ const FORMATS = [
   {
     label: 'Gummies & capsules',
     icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" {...ICON_STROKE}>
+      <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" {...ICON_STROKE}>
         <rect x="8.2" y="2.6" width="7.6" height="18.8" rx="3.8" transform="rotate(45 12 12)" />
         <path d="M8.6 8.6l6.8 6.8" />
       </svg>
@@ -16,7 +16,7 @@ const FORMATS = [
   {
     label: 'Powders & blends',
     icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" {...ICON_STROKE}>
+      <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" {...ICON_STROKE}>
         <path d="M8 9h8l1.5 11a1.6 1.6 0 01-1.6 1.8H8.1A1.6 1.6 0 016.5 20L8 9z" />
         <rect x="8.6" y="4.4" width="6.8" height="4.6" rx="1" />
         <path d="M9.4 15h5.2" />
@@ -26,7 +26,7 @@ const FORMATS = [
   {
     label: 'Serums & droppers',
     icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" {...ICON_STROKE}>
+      <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" {...ICON_STROKE}>
         <path d="M12 3v2.4" />
         <rect x="9.4" y="5.4" width="5.2" height="3" rx="1" />
         <path d="M10 8.4L9.2 19a2.8 2.8 0 005.6 0L14 8.4" />
@@ -37,7 +37,7 @@ const FORMATS = [
   {
     label: 'Creams & jars',
     icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" {...ICON_STROKE}>
+      <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" {...ICON_STROKE}>
         <rect x="5" y="9.4" width="14" height="11" rx="2.4" />
         <path d="M6.4 6.6h11.2v2.8H6.4z" />
         <path d="M5 13.6h14" />
@@ -47,7 +47,7 @@ const FORMATS = [
   {
     label: 'Sachets & pouches',
     icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" {...ICON_STROKE}>
+      <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" {...ICON_STROKE}>
         <path d="M7.4 4.6h9.2l1.8 13.2a2.4 2.4 0 01-2.4 2.7H8a2.4 2.4 0 01-2.4-2.7L7.4 4.6z" />
         <path d="M7 7.4h10" />
         <path d="M9.6 13.2c.8 1 1.6 1.5 2.4 1.5s1.6-.5 2.4-1.5" />
@@ -57,7 +57,7 @@ const FORMATS = [
   {
     label: 'Beverages & shots',
     icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" {...ICON_STROKE}>
+      <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" {...ICON_STROKE}>
         <rect x="7" y="6.6" width="10" height="14.4" rx="2.2" />
         <path d="M9 3.4h6l1 3.2H8l1-3.2z" />
         <path d="M7 11h10" />

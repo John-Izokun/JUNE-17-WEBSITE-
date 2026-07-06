@@ -58,7 +58,11 @@ export default function ScannerFeed() {
   }, [poolIdx])
 
   return (
-    <div className="scanner-frame">
+    <div
+      className="scanner-frame"
+      role="img"
+      aria-label="Live demand radar: a feed of consumer brands whose products are going out of stock right now"
+    >
       <div className="scanner-header">
         <div className="scanner-header-left">
           <div className="scanner-dot" />
