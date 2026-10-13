@@ -1,7 +1,7 @@
 {
   "name": "signal-and-line",
   "version": "2.0.0",
-  "description": "Signal & Line — Demand Intelligence Platform",
+  "description": "Signal & Line — new brands for contract manufacturers and co-packers",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource-variable/archivo": "5.3.0",
+    "@fontsource/ibm-plex-mono": "5.3.0",
+    "@number-flow/react": "0.6.2",
     "framer-motion": "^11.15.0",
+    "lucide-react": "1.56.0",
     "react": "^19.2.1",
     "react-dom": "^19.2.1"
   },

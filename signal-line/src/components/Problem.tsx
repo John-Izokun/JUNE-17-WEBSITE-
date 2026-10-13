@@ -1,221 +1,179 @@
-import { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-
-type Tab = 'manufacturers' | 'brands'
-
-function useCountUp(target: number, active: boolean, duration = 1800) {
-  const [value, setValue] = useState(0)
-  useEffect(() => {
-    if (!active) { setValue(0); return }
-    const start = Date.now()
-    const tick = () => {
-      const elapsed = Date.now() - start
-      const progress = Math.min(elapsed / duration, 1)
-      const ease = 1 - Math.pow(1 - progress, 3)
-      setValue(Math.round(ease * target))
-      if (progress < 1) requestAnimationFrame(tick)
-    }
-    requestAnimationFrame(tick)
-  }, [active, target, duration])
-  return value
-}
+import { useId, useState } from 'react'
+import NumberFlow from '@number-flow/react'
 
 const CHANNELS = [
   {
     name: 'Referrals',
-    tag: 'Runs dry',
-    good: false,
-    desc: 'Great when they come — but you can\'t forecast a pipeline built on favors. The moment your network runs dry, so does your inbound, and there\'s no dial to turn it back up.',
+    cost: 'Nothing up front',
+    catch: 'You can’t plan a year on favors. When your network goes quiet, so does your inbound — and there is no dial to turn it back up.',
   },
   {
     name: 'Trade shows',
-    tag: '$8K–$50K / booth',
-    good: false,
-    desc: 'A single booth runs $8K–$50K plus travel and staffing — and you walk away with a stack of cards, most of them the wrong format, MOQ, or timeline for your floor.',
+    cost: 'A booth, travel, and days off the floor',
+    catch: 'You come home with a stack of cards. Most are the wrong format, the wrong run size, or the wrong timing for your floor.',
   },
   {
     name: 'Commission brokers',
-    tag: '5–8% / deal',
-    good: false,
-    desc: 'They skim 5–8% of every contract — even the ones your team sourced, quoted, and closed. Your margin keeps paying for one introduction, contract after contract.',
+    cost: 'A cut of every run',
+    catch: 'Your margin keeps paying for one introduction, run after run — including the runs your own team quoted and closed.',
   },
   {
     name: 'Directories & marketplaces',
-    tag: 'You wait',
-    good: false,
-    desc: 'You become profile #4,000-something and wait to be searched. The platform owns the relationship — and a brand in a real stock-out isn\'t browsing profiles, it\'s answering whoever reaches it first.',
+    cost: 'A profile, then waiting',
+    catch: 'The platform owns the relationship, and a brand that needs product made talks to whoever reached it first.',
   },
   {
     name: 'Signal & Line',
-    tag: 'Estimator-cleared',
-    good: true,
-    desc: 'Format-matched, MOQ-verified RFQs from brands that are actively stocking out — routed straight to your quoting team. No cold lists, no commission, no wasted estimator time.',
+    cost: '$3,500 once — no cut, ever',
+    catch: 'Five introductions, each spoken to first and checked against your floor. Introductions, not contracts — whether a brand signs is between you and it.',
+    ours: true,
   },
 ]
 
+interface FieldProps {
+  label: string
+  hint: string
+  value: number
+  min: number
+  max: number
+  step: number
+  prefix?: string
+  onChange: (n: number) => void
+}
+
+function Field({ label, hint, value, min, max, step, prefix, onChange }: FieldProps) {
+  const id = useId()
+  const fill = `${((value - min) / (max - min)) * 100}%`
+  const set = (raw: string) => {
+    const n = Number(raw)
+    if (Number.isFinite(n)) onChange(Math.min(max, Math.max(min, Math.round(n))))
+  }
+  return (
+    <div className="calc-field">
+      <div className="calc-row">
+        <label htmlFor={`${id}-n`}>
+          {label}
+          <small>{hint}</small>
+        </label>
+        <span className="num-wrap">
+          {prefix}
+          <input
+            id={`${id}-n`}
+            className="num"
+            type="number"
+            inputMode="numeric"
+            min={min}
+            max={max}
+            step={step}
+            value={value}
+            onChange={e => set(e.target.value)}
+          />
+        </span>
+      </div>
+      <input
+        className="range"
+        type="range"
+        aria-label={label}
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        style={{ ['--fill' as string]: fill } as React.CSSProperties}
+        onChange={e => set(e.target.value)}
+      />
+    </div>
+  )
+}
+
 export default function Problem() {
-  const [tab, setTab] = useState<Tab>('manufacturers')
-  const [inView, setInView] = useState(false)
-  const [gaugeWidth, setGaugeWidth] = useState(0)
-  const ref = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) setInView(true)
-    }, { threshold: 0.2 })
-    if (ref.current) obs.observe(ref.current)
-    return () => obs.disconnect()
-  }, [])
-
-  useEffect(() => {
-    if (tab === 'manufacturers' && inView) {
-      setTimeout(() => setGaugeWidth(60), 300)
-    } else {
-      setGaugeWidth(0)
-    }
-  }, [tab, inView])
-
-  const revenueDay = useCountUp(4200, tab === 'brands' && inView)
-  const revenueWeek = useCountUp(29400, tab === 'brands' && inView)
+  const [hours, setHours] = useState(12)
+  const [margin, setMargin] = useState(150)
+  const [weeks, setWeeks] = useState(50)
+  const yearly = hours * margin * weeks
+  const monthly = Math.round(yearly / 12)
 
   return (
-    <section className="section problem-section" ref={ref} id="problem">
-      <div className="container">
-        <div className="section-label">
-          <span className="label label-purple">01 · The Problem</span>
-        </div>
-        <h2 className="section-title">
-          {tab === 'manufacturers'
-            ? 'Your lines are running empty. Right now.'
-            : 'Your products are out of stock. Right now.'
-          }
-        </h2>
-        <p className="section-sub">
-          {tab === 'manufacturers'
-            ? 'You have open production capacity and no reliable stream of qualified demand. Every idle hour on the line is margin you will never earn back.'
-            : 'While you\'re waiting months for your co-packer to have availability, you\'re hemorrhaging revenue and customers every single day.'
-          }
-        </p>
+    <section className="sheet sheet--paper" id="problem">
+      <div className="wrap">
+        <header className="sheet-head">
+          <span className="no">01</span><span>The problem</span><span className="rule" />
+        </header>
 
-        <div className="problem-tabs">
-          <button className={`problem-tab ${tab === 'manufacturers' ? 'active' : ''}`} aria-pressed={tab === 'manufacturers'} onClick={() => setTab('manufacturers')}>
-            For Manufacturers
-          </button>
-          <button className={`problem-tab ${tab === 'brands' ? 'active' : ''}`} aria-pressed={tab === 'brands'} onClick={() => setTab('brands')}>
-            For Brands
-          </button>
-        </div>
-
-        <AnimatePresence mode="wait">
-          {tab === 'manufacturers' ? (
-            <motion.div
-              key="manufacturers"
-              className="problem-content"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -16 }}
-              transition={{ duration: 0.35 }}
-            >
-              <div>
-                <div className="problem-stat-card problem-stat-card--alert">
-                  <div className="problem-stat-label">
-                    <span className="label">Average open capacity on a co-packing line</span>
-                  </div>
-                  <div className="problem-stat-num" style={{ color: 'var(--amber)' }}>
-                    {gaugeWidth}%
-                  </div>
-                  <p className="problem-stat-bold">
-                    Idle capacity loses money every single day it isn&apos;t booked — and you
-                    can&apos;t bill back the hours you&apos;ve already lost.
-                  </p>
-                  <div className="capacity-gauge">
-                    <div className="gauge-labels">
-                      <span>Open / idle</span>
-                      <span>Booked</span>
-                    </div>
-                    <div className="gauge-bar-bg">
-                      <div className="gauge-bar-fill" style={{ width: `${gaugeWidth}%`, background: 'linear-gradient(90deg, var(--red), var(--amber))' }} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="channels">
-                <div className="channels-head">
-                  <span className="label">How most facilities fill it — and why it breaks</span>
-                </div>
-                {CHANNELS.map(ch => (
-                  <div key={ch.name} className={`channel-card ${ch.good ? 'good' : ''}`}>
-                    <div className="channel-top">
-                      <span className="channel-name">{ch.name}</span>
-                      <span className={`channel-tag ${ch.good ? 'good' : ''}`}>{ch.tag}</span>
-                    </div>
-                    <p className="channel-desc">{ch.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="brands"
-              className="problem-content"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -16 }}
-              transition={{ duration: 0.35 }}
-            >
-              <div>
-                <div className="problem-stat-card">
-                  <div className="problem-stat-label">
-                    <span className="label">Daily revenue loss — OOS product</span>
-                  </div>
-                  <div className="problem-stat-num">
-                    ${revenueDay.toLocaleString()}
-                  </div>
-                  <div style={{ fontSize: '0.85rem', color: 'var(--dim)', marginBottom: '1rem' }}>
-                    per day · ${revenueWeek.toLocaleString()} this week
-                  </div>
-                  <div className="capacity-gauge">
-                    <div className="gauge-labels">
-                      <span>Revenue lost</span>
-                      <span>Growing</span>
-                    </div>
-                    <div className="gauge-bar-bg">
-                      <div className="gauge-bar-fill" style={{ width: inView ? '73%' : '0%', transition: 'width 1.8s cubic-bezier(0.4,0,0.2,1)' }} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="problem-points">
-                <div className="problem-point">
-                  <div className="problem-point-icon red" />
-                  <p className="problem-point-text">
-                    <strong>12-week lead times</strong> from your current co-packer mean the problem compounds before it's solved.
-                  </p>
-                </div>
-                <div className="problem-point">
-                  <div className="problem-point-icon amber" />
-                  <p className="problem-point-text">
-                    <strong>Back-order waitlists fill</strong> while you cold-call manufacturers who may not even run your format.
-                  </p>
-                </div>
-                <div className="problem-point">
-                  <div className="problem-point-icon purple" />
-                  <p className="problem-point-text">
-                    <strong>Signal & Line detects</strong> your stock-out within 24 hours and surfaces a verified manufacturer match — ready to quote.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        <div className="pullquote">
-          <div className="pullquote-text">
-            &ldquo;You quote. <span>We route.</span>&rdquo;
+        <div className="split">
+          <div>
+            <h2 className="h2">Your lines are running empty. Right now.</h2>
+            <p className="lede">
+              An open line still costs rent, power and payroll. Every idle hour is margin you never
+              earn back — and there is no steady stream of new brands to fill it.
+            </p>
+            <p className="lede lede-sm">
+              The work exists. New brands apply for trademarks every week, and many haven’t chosen
+              a manufacturer yet. The hard part was never demand — it was reaching them before
+              someone else did.
+            </p>
           </div>
-          <div className="pullquote-cap">The whole model — in four words</div>
+
+          <div className="doc">
+            <div className="doc-head">
+              <b>What open time costs your floor</b>
+              <span className="tag">Example figures</span>
+            </div>
+            <div className="calc-body">
+              <Field
+                label="Open line-hours a week"
+                hint="Hours a line could run but doesn’t, across the floor"
+                value={hours} min={0} max={160} step={1}
+                onChange={setHours}
+              />
+              <Field
+                label="Margin per line-hour"
+                hint="What an hour of production contributes after materials"
+                value={margin} min={0} max={3000} step={10} prefix="$"
+                onChange={setMargin}
+              />
+              <Field
+                label="Weeks you run a year"
+                hint="Leave out shutdowns and holidays"
+                value={weeks} min={1} max={52} step={1}
+                onChange={setWeeks}
+              />
+            </div>
+            <div className="calc-out" aria-live="polite">
+              <div className="calc-out-k">Margin open time leaves on the table</div>
+              <div className="calc-out-v">
+                <NumberFlow value={yearly} format={{ style: 'currency', currency: 'USD', maximumFractionDigits: 0 }} />
+                <span style={{ fontSize: '0.45em', fontWeight: 600, letterSpacing: 0, marginLeft: '0.35rem', color: 'var(--night-mute)' }}>/ year</span>
+              </div>
+              <div className="calc-out-s">
+                About <b><NumberFlow value={monthly} format={{ style: 'currency', currency: 'USD', maximumFractionDigits: 0 }} /></b> every month.
+              </div>
+            </div>
+            <p className="calc-note">These are example figures — change them to your own. Nothing you type here leaves this page.</p>
+          </div>
+        </div>
+
+        <div className="ledger">
+          <div className="ledger-head">
+            <h3>How most facilities fill a line today — and why it breaks</h3>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Channel</th>
+                <th scope="col">What it costs you</th>
+                <th scope="col">The catch</th>
+              </tr>
+            </thead>
+            <tbody>
+              {CHANNELS.map(c => (
+                <tr key={c.name} className={c.ours ? 'ours' : undefined}>
+                  <td>{c.name}</td>
+                  <td>{c.cost}</td>
+                  <td>{c.catch}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
