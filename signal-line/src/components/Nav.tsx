@@ -1,106 +1,129 @@
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { ArrowRight, ChevronDown, Menu, X } from 'lucide-react'
 
 interface NavProps {
-  onBookCall: () => void
+  onBook: () => void
 }
 
-const LINKS = [
-  { label: 'How It Works',  id: 'how-it-works'      },
-  { label: 'Manufacturers', id: 'for-manufacturers' },
-  { label: 'Co-packers',    id: 'for-manufacturers' },
-  { label: 'Proof',         id: 'intelligence'      },
-]
-
-// Every industry routes to the brand-facing story.
-const INDUSTRIES = [
+export const INDUSTRIES = [
+  'Supplements & nutraceuticals',
   'Skincare',
   'Haircare',
-  'Supplements & Nutraceutical',
-  'Food & Beverage',
   'Cosmetics',
-  'Pet & Personal Care',
+  'Personal care',
+  'Food & beverage',
+  'Pet care',
 ]
 
-export default function Nav({ onBookCall }: NavProps) {
+// Each industry chip in section 06 carries this id, so every menu item lands on its own chip.
+export const indId = (name: string) =>
+  `ind-${name.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-')}`
+
+// One list of formats, shared by the floor check (04) and the formats grid (06).
+export const FORMATS = [
+  'Capsules & tablets',
+  'Gummies & soft chews',
+  'Powders & blends',
+  'Liquids & serums',
+  'Creams & lotions',
+  'Drinks & shots',
+] as const
+export type Format = typeof FORMATS[number]
+
+const LINKS = [
+  { label: 'How it works', href: '#how-it-works' },
+  { label: 'Where brands come from', href: '#source' },
+  { label: 'The offer', href: '#offer' },
+  { label: 'Questions', href: '#questions' },
+]
+
+export function BrandMark() {
+  return (
+    <svg className="brand-mark" viewBox="0 0 24 24" aria-hidden="true">
+      <rect width="24" height="24" rx="6" fill="#0B1622" />
+      <path d="M5 12h14" stroke="#E6EEF5" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="15.5" cy="12" r="3.3" fill="#3CC98F" />
+    </svg>
+  )
+}
+
+export default function Nav({ onBook }: NavProps) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [indOpen, setIndOpen] = useState(false)
+  const [ddOpen, setDdOpen] = useState(false)
+  const ddRef = useRef<HTMLLIElement>(null)
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', handler)
-    return () => window.removeEventListener('scroll', handler)
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   useEffect(() => {
-    const handler = () => { if (window.innerWidth > 768) setMenuOpen(false) }
-    window.addEventListener('resize', handler)
-    return () => window.removeEventListener('resize', handler)
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') { setDdOpen(false); setMenuOpen(false) }
+    }
+    const onClick = (e: MouseEvent) => {
+      if (ddRef.current && !ddRef.current.contains(e.target as Node)) setDdOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    document.addEventListener('click', onClick)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.removeEventListener('click', onClick)
+    }
   }, [])
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
+    const onResize = () => { if (window.innerWidth > 1080) setMenuOpen(false) }
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
   }, [menuOpen])
-
-  const scrollTo = (id: string) => {
-    setMenuOpen(false)
-    setIndOpen(false)
-    setTimeout(() => {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }, 100)
-  }
 
   return (
     <>
-      <nav className={`nav ${scrolled ? 'scrolled' : ''}`}>
-        <div className="nav-inner">
-          <a href="/" className="nav-logo">
-            <div className="nav-logo-dot" />
-            Signal & Line
+      <header className={`nav ${scrolled ? 'is-scrolled' : ''}`}>
+        <div className="wrap nav-inner">
+          <a href="#top" className="brand" aria-label="Signal & Line — back to top">
+            <BrandMark />
+            Signal &amp; Line
           </a>
 
           <ul className="nav-links">
             {LINKS.map(l => (
-              <li key={l.label}>
-                <a href={`#${l.id}`} onClick={e => { e.preventDefault(); scrollTo(l.id) }}>
-                  {l.label}
-                </a>
-              </li>
+              <li key={l.href}><a href={l.href}>{l.label}</a></li>
             ))}
-
             <li
-              className="nav-dropdown"
-              onMouseEnter={() => setIndOpen(true)}
-              onMouseLeave={() => setIndOpen(false)}
+              className="dd"
+              ref={ddRef}
+              onMouseEnter={() => setDdOpen(true)}
+              onMouseLeave={() => setDdOpen(false)}
             >
               <button
-                className="nav-dropdown-trigger"
-                onClick={() => setIndOpen(o => !o)}
-                aria-expanded={indOpen}
-                aria-haspopup="true"
+                type="button"
+                aria-expanded={ddOpen}
+                aria-controls="industries-menu"
+                onClick={() => setDdOpen(o => !o)}
               >
                 Industries
-                <svg className={`nav-caret ${indOpen ? 'open' : ''}`} width="10" height="10" viewBox="0 0 24 24" fill="none">
-                  <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <ChevronDown size={15} className={`caret ${ddOpen ? 'open' : ''}`} aria-hidden="true" />
               </button>
-
               <AnimatePresence>
-                {indOpen && (
+                {ddOpen && (
                   <motion.div
-                    className="nav-dropdown-menu"
-                    initial={{ opacity: 0, y: 8 }}
+                    id="industries-menu"
+                    className="dd-menu"
+                    initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 8 }}
-                    transition={{ duration: 0.16, ease: [0.33, 0, 0.15, 1] }}
+                    exit={{ opacity: 0, y: 6 }}
+                    transition={{ duration: 0.16 }}
                   >
-                    <span className="nav-dropdown-head">Built for your category</span>
+                    <span className="dd-head">Brands by category</span>
                     {INDUSTRIES.map(n => (
-                      <button key={n} onClick={() => scrollTo('for-brands')}>
-                        {n}
-                      </button>
+                      <a key={n} href={`#${indId(n)}`} onClick={() => setDdOpen(false)}>{n}</a>
                     ))}
                   </motion.div>
                 )}
@@ -108,103 +131,60 @@ export default function Nav({ onBookCall }: NavProps) {
             </li>
           </ul>
 
-          <div className="nav-cta nav-desktop-cta">
-            <button
-              className="btn btn-purple"
-              style={{ fontSize: '0.8rem', padding: '0.6rem 1.2rem' }}
-              onClick={onBookCall}
-            >
-              Run the OOS Radar
-            </button>
-          </div>
-
-          <div className="nav-mobile-right">
-            <button
-              className="btn btn-purple"
-              style={{ fontSize: '0.75rem', padding: '0.5rem 0.9rem' }}
-              onClick={onBookCall}
-            >
-              Book a Call
+          <div className="nav-right">
+            <a className="nav-quiet" href="#for-brands">For brands</a>
+            <button type="button" className="btn btn-primary btn-sm nav-cta" onClick={onBook}>
+              <span className="cta-long">Book a production review</span>
+              <span className="cta-short">Book a review</span>
             </button>
             <button
-              className="hamburger"
+              type="button"
+              className="menu-btn"
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={menuOpen}
               onClick={() => setMenuOpen(o => !o)}
-              aria-label="Toggle menu"
             >
-              <span className={`ham-line ${menuOpen ? 'open' : ''}`} />
-              <span className={`ham-line ${menuOpen ? 'open' : ''}`} />
-              <span className={`ham-line ${menuOpen ? 'open' : ''}`} />
+              {menuOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
             </button>
           </div>
         </div>
-      </nav>
+      </header>
 
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
-            className="mobile-menu"
-            initial={{ opacity: 0, y: -16 }}
+          <motion.nav
+            className="sheet-menu"
+            aria-label="Site"
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
           >
-            <nav className="mobile-menu-links">
-              {LINKS.map((l, i) => (
-                <motion.button
-                  key={l.label}
-                  className="mobile-menu-link"
-                  onClick={() => scrollTo(l.id)}
-                  initial={{ opacity: 0, x: -12 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                >
-                  {l.label}
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                  </svg>
-                </motion.button>
+            {LINKS.map(l => (
+              <a key={l.href} className="m-link" href={l.href} onClick={() => setMenuOpen(false)}>
+                {l.label}
+                <ArrowRight size={18} aria-hidden="true" />
+              </a>
+            ))}
+            <a className="m-link" href="#for-brands" onClick={() => setMenuOpen(false)}>
+              For brands
+              <ArrowRight size={18} aria-hidden="true" />
+            </a>
+            <div className="m-label">Industries</div>
+            <div className="m-chips">
+              {INDUSTRIES.map(n => (
+                <a key={n} href={`#${indId(n)}`} onClick={() => setMenuOpen(false)}>{n}</a>
               ))}
-
-              <motion.div
-                className="mobile-menu-section-label"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: LINKS.length * 0.05 }}
-              >
-                <span className="label">Industries</span>
-              </motion.div>
-              <div className="mobile-menu-chips">
-                {INDUSTRIES.map((n, i) => (
-                  <motion.button
-                    key={n}
-                    className="mobile-menu-chip"
-                    onClick={() => scrollTo('for-brands')}
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: LINKS.length * 0.05 + i * 0.03 }}
-                  >
-                    {n}
-                  </motion.button>
-                ))}
-              </div>
-
-              <motion.button
-                className="mobile-menu-link mobile-menu-cta"
-                onClick={() => { setMenuOpen(false); onBookCall() }}
-                initial={{ opacity: 0, x: -12 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: (LINKS.length + INDUSTRIES.length) * 0.04 }}
-              >
-                Run the OOS Radar for My Facility
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                </svg>
-              </motion.button>
-            </nav>
-            <div className="mobile-menu-footer">
-              <span className="label">Signal & Line · Montreal, CA</span>
             </div>
-          </motion.div>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => { setMenuOpen(false); onBook() }}
+            >
+              Book a production review
+              <ArrowRight size={18} aria-hidden="true" />
+            </button>
+          </motion.nav>
         )}
       </AnimatePresence>
     </>

@@ -1,73 +1,74 @@
-const EXPLORE = [
-  { label: 'How It Works',  id: 'how-it-works' },
-  { label: 'Manufacturers', id: 'for-manufacturers' },
-  { label: 'Co-packers',    id: 'for-manufacturers' },
-  { label: 'For Brands',    id: 'for-brands' },
-  { label: 'Proof',         id: 'intelligence' },
-]
+import { ArrowRight } from 'lucide-react'
+import { BrandMark } from './Nav'
 
-const INDUSTRIES = [
-  'Skincare', 'Haircare', 'Supplements & Nutraceutical',
-  'Food & Beverage', 'Cosmetics', 'Pet & Personal Care',
-]
-
-export default function Footer() {
+export default function Footer({ onBook }: { onBook: () => void }) {
   const year = new Date().getFullYear()
 
-  const scrollTo = (id: string) =>
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-
   return (
-    <footer className="footer-v3">
-      <div className="container">
-        <div className="footer-grid">
-          <div>
-            <div className="footer-logo">
-              <div className="footer-logo-dot" />
-              Signal & Line
-            </div>
-            <p className="footer-tagline">
-              Demand intelligence for co-packing. We fill open manufacturing
-              capacity with DTC brands that need production now.
-            </p>
-            <div className="footer-status" style={{ marginTop: '1.2rem' }}>
-              <div className="footer-status-dot" />
-              Radar operational — scanning live
-            </div>
+    <footer className="foot">
+      <div className="wrap">
+        <div className="for-brands" id="for-brands">
+          <span className="k">For brands</span>
+          <p>
+            <b>Building a brand and need someone to make it?</b> Tell us the format, roughly how
+            much you need and any certifications it must carry. We’ll tell you whether we can
+            introduce you to a facility that runs it — at no cost to you.
+          </p>
+          <a className="btn btn-ghost btn-sm" href="mailto:john.izokun@klyvo.ca?subject=Looking%20for%20a%20manufacturer">
+            Tell us what you’re making
+            <ArrowRight size={16} aria-hidden="true" />
+          </a>
+        </div>
+
+        <div className="tblock">
+          <div className="tb tb-brand">
+            <div className="tb-k">Signal &amp; Line</div>
+            <div className="tb-v"><BrandMark />New brands for contract manufacturers</div>
+          </div>
+          <div className="tb">
+            <div className="tb-k">Drawn for</div>
+            <div className="tb-v">Contract manufacturers &amp; co-packers</div>
+          </div>
+          <div className="tb">
+            <div className="tb-k">Location</div>
+            <div className="tb-v">Montreal, Canada</div>
+          </div>
+          <div className="tb">
+            <div className="tb-k">Contact</div>
+            <div className="tb-v"><a href="mailto:john.izokun@klyvo.ca">john.izokun@klyvo.ca</a></div>
           </div>
 
-          <nav className="footer-col" aria-label="Explore">
-            <div className="footer-col-title">Explore</div>
-            {EXPLORE.map(l => (
-              <button key={l.label} onClick={() => scrollTo(l.id)}>{l.label}</button>
-            ))}
-          </nav>
-
-          <nav className="footer-col" aria-label="Industries">
-            <div className="footer-col-title">Industries</div>
-            {INDUSTRIES.map(n => (
-              <button key={n} onClick={() => scrollTo('for-brands')}>{n}</button>
-            ))}
-          </nav>
-
-          <div className="footer-col">
-            <div className="footer-col-title">Contact</div>
-            <a href="mailto:john.izokun@klyvo.ca">john.izokun@klyvo.ca</a>
-            <button onClick={() => scrollTo('book-call')}>Book a production review</button>
-            <span style={{ display: 'block', padding: '0.32rem 0', fontSize: '0.875rem', color: 'var(--ink-3)' }}>
-              Montreal, Canada
-            </span>
+          <div className="tb">
+            <div className="tb-k">Terms</div>
+            <div className="tb-v">$3,500 once · 5 introductions · 60 days</div>
+          </div>
+          <div className="tb">
+            <div className="tb-k">Guarantee</div>
+            <div className="tb-v">Fewer than five — full refund</div>
+          </div>
+          <div className="tb">
+            <div className="tb-k">Sheet · Rev</div>
+            <div className="tb-v mono">1 of 1 · A</div>
+          </div>
+          <div className="tb">
+            <div className="tb-k">Next step</div>
+            <div className="tb-v">
+              <button type="button" className="text-link" onClick={onBook}>Book a production review</button>
+            </div>
           </div>
         </div>
 
-        <div className="footer-bottom">
-          <span className="footer-bottom-copy">
-            © {year} Signal &amp; Line · Demand intelligence for co-packing
-          </span>
-          <span className="footer-bottom-copy">
-            Built in Montreal · Working across North America
-          </span>
-        </div>
+        <nav className="foot-links" aria-label="Footer">
+          <a href="#problem">The problem</a>
+          <a href="#source">Where brands come from</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="#fit">For manufacturers &amp; co-packers</a>
+          <a href="#offer">The offer</a>
+          <a href="#industries">Industries</a>
+          <a href="#for-brands">For brands</a>
+          <a href="#questions">Questions</a>
+          <span style={{ marginLeft: 'auto', color: 'var(--ink-3)' }}>© {year} Signal &amp; Line</span>
+        </nav>
       </div>
     </footer>
   )

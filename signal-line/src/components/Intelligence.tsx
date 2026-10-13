@@ -1,236 +1,222 @@
-import React from 'react'
-import { useRef, useState, useEffect } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { useEffect, useMemo, useRef } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { ArrowRight, Check, FileText, Printer, X } from 'lucide-react'
+import { printOnly } from './BookCall'
 
-function useCountUp(target: number, active: boolean, duration = 2000) {
-  const [value, setValue] = useState(0)
-  useEffect(() => {
-    if (!active) return
-    const start = Date.now()
-    const tick = () => {
-      const elapsed = Date.now() - start
-      const progress = Math.min(elapsed / duration, 1)
-      const ease = 1 - Math.pow(1 - progress, 3)
-      setValue(Math.round(ease * target))
-      if (progress < 1) requestAnimationFrame(tick)
-    }
-    requestAnimationFrame(tick)
-  }, [active, target, duration])
-  return value
+interface Props {
+  onOpenMemo: () => void
 }
 
-const CARDS = [
-  {
-    color: 'purple',
-    label: 'Shopify Monitoring',
-    countTarget: 10247,
-    countSuffix: '',
-    countLabel: 'Storefronts indexed',
-    details: [
-      'Live inventory tracking',
-      'Variant-level stock detection',
-      'Multi-product detection per brand',
-      'False-positive filtering built in',
-      'Continuous re-scan cadence',
-    ],
-  },
-  {
-    color: 'cyan',
-    label: 'Amazon Detection',
-    countTarget: 412,
-    countSuffix: '',
-    countLabel: 'Stock-outs flagged',
-    details: [
-      'Real-time availability checks',
-      'Stock-status verification',
-      'Brand-to-domain matching',
-      'Confidence scoring on every signal',
-      'Continuous coverage',
-    ],
-  },
-  {
-    color: 'amber',
-    label: 'Decision-Maker Match',
-    countTarget: 8340,
-    countSuffix: '',
-    countLabel: 'Decision-makers identified',
-    details: [
-      'Founder / COO / CEO targeting',
-      'Verified work-email matching',
-      'One decision-maker per brand',
-      'No duplicate outreach',
-      'Low-confidence routed to manual review',
-    ],
-  },
-]
-
-const ICON_SVG: Record<string, React.ReactElement> = {
-  purple: (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="9" stroke="#10614A" strokeWidth="2"/>
-      <circle cx="12" cy="12" r="4" stroke="#10614A" strokeWidth="2"/>
-      <circle cx="12" cy="12" r="1.5" fill="#10614A"/>
-    </svg>
-  ),
-  cyan: (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="#17547F" strokeWidth="2"/>
-      <path d="M9 22V12h6v10" stroke="#17547F" strokeWidth="2"/>
-    </svg>
-  ),
-  amber: (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="#8F6A14" strokeWidth="2"/>
-      <circle cx="9" cy="7" r="4" stroke="#8F6A14" strokeWidth="2"/>
-      <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="#8F6A14" strokeWidth="2"/>
-    </svg>
-  ),
+function filedDate() {
+  const d = new Date()
+  d.setDate(d.getDate() - 9)
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
 }
 
-export default function Intelligence() {
-  const ref = useRef<HTMLElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-80px' })
+export default function Intelligence({ onOpenMemo }: Props) {
+  const filed = useMemo(filedDate, [])
 
   return (
-    <section className="section intel-section" ref={ref} id="intelligence">
-      <div className="container">
-        <div className="section-label">
-          <span className="label label-purple">05 · The Proof</span>
-        </div>
-        <h2 className="section-title">
-          Three data sources. One routing system.
-        </h2>
-        <p className="section-sub">
-          Every signal is verified against the live source before anything reaches
-          your team — no stale lists, no guesswork, no bad-fit leads.
+    <section className="sheet" id="source">
+      <div className="wrap">
+        <header className="sheet-head">
+          <span className="no">02</span><span>Where the brands come from</span><span className="rule" />
+        </header>
+
+        <h2 className="h2">Many brands exist on paper before they exist on a&nbsp;shelf.</h2>
+        <p className="lede">
+          A trademark application is public the day it’s filed — often before the brand has made
+          anything, and before it has chosen who will make it. Here is how one of them reaches
+          your desk.
         </p>
 
-        <motion.div
-          className="intel-diagram"
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="intel-diagram-title">Live routing map — three sources, one output</div>
+        <div className="trio">
+          <article className="doc rec" aria-label="Example trademark application">
+            <div className="doc-head"><b>Trademark application</b><span className="tag">Example</span></div>
+            <dl>
+              <div className="rec-row"><dt>Mark</dt><dd className="mark-strong">MARIGOLD BOTANICALS</dd></div>
+              <div className="rec-row"><dt>Filed</dt><dd>{filed}</dd></div>
+              <div className="rec-row"><dt>Class</dt><dd>003 — Cosmetics: serums, creams</dd></div>
+              <div className="rec-row"><dt>Owner</dt><dd>Marigold Botanicals LLC</dd></div>
+              <div className="rec-row"><dt>Status</dt><dd>New application</dd></div>
+              <div className="rec-row flag"><dt>Filing basis</dt><dd>Intent to use — not yet sold</dd></div>
+            </dl>
+            <div className="rec-foot">
+              <span className="stamp stamp-public">Public record</span>
+              <small>Applied for · nothing made yet</small>
+            </div>
+          </article>
 
-          <svg viewBox="0 0 900 204" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram: Shopify storefronts, Amazon listings and decision-maker data flow into Signal and Line, which routes estimator-cleared RFQs to your quoting team.">
-            {/* source nodes */}
-            {[
-              { y: 14,  l1: 'SHOPIFY STOREFRONTS', l2: '10,000+ monitored' },
-              { y: 78,  l1: 'AMAZON LISTINGS',     l2: 'live availability' },
-              { y: 142, l1: 'DECISION-MAKER DATA', l2: 'founder / COO verified' },
-            ].map(n => (
-              <g key={n.l1}>
-                <rect x="8" y={n.y} width="196" height="48" rx="8"
-                  fill="var(--paper)" stroke="var(--border-s)" strokeWidth="1" />
-                <circle cx="28" cy={n.y + 24} r="3.5" fill="var(--accent)" opacity="0.85" />
-                <text x="42" y={n.y + 21} fontFamily="var(--mono)" fontSize="10.5" letterSpacing="0.6" fill="var(--ink)">{n.l1}</text>
-                <text x="42" y={n.y + 37} fontFamily="var(--mono)" fontSize="9.5" fill="var(--ink-3)">{n.l2}</text>
-              </g>
-            ))}
-
-            {/* flow lines: sources → router */}
-            <path className="flow-dash" d="M204 38 C 290 38, 300 96, 368 100" fill="none" stroke="var(--accent)" strokeWidth="1.5" opacity="0.5" />
-            <path className="flow-dash" d="M204 102 C 260 102, 300 102, 368 102" fill="none" stroke="var(--accent)" strokeWidth="1.5" opacity="0.5" />
-            <path className="flow-dash" d="M204 166 C 290 166, 300 108, 368 104" fill="none" stroke="var(--accent)" strokeWidth="1.5" opacity="0.5" />
-
-            {/* router */}
-            <rect x="368" y="62" width="196" height="80" rx="10" fill="#0B1826" stroke="rgba(47,190,143,0.4)" strokeWidth="1.2" />
-            <circle cx="394" cy="94" r="4" fill="#2FBE8F" />
-            <text x="406" y="98" fontFamily="var(--mono)" fontSize="11" letterSpacing="0.8" fill="#E8EFF6">SIGNAL &amp; LINE</text>
-            <text x="394" y="122" fontFamily="var(--mono)" fontSize="9.5" letterSpacing="0.6" fill="#6E87A0">QUALIFY · KILL · ROUTE</text>
-
-            {/* router → output */}
-            <path className="flow-dash" d="M564 102 C 630 102, 660 102, 700 102" fill="none" stroke="var(--accent)" strokeWidth="1.8" opacity="0.75" />
-
-            {/* output node */}
-            <rect x="700" y="70" width="192" height="64" rx="9" fill="var(--accent-tint)" stroke="var(--accent-border)" strokeWidth="1.2" />
-            <text x="722" y="97" fontFamily="var(--mono)" fontSize="10.5" letterSpacing="0.6" fill="var(--accent-ink)">YOUR QUOTING TEAM</text>
-            <text x="722" y="114" fontFamily="var(--mono)" fontSize="9.5" fill="var(--ink-2)">estimator-cleared RFQs</text>
-          </svg>
-
-          <div className="intel-diagram-mobile">
-            <div className="intel-flow-row">Shopify storefronts — 10,000+ monitored</div>
-            <div className="intel-flow-row">Amazon listings — live availability</div>
-            <div className="intel-flow-row">Decision-maker data — verified</div>
-            <div className="intel-flow-arrow">↓ &nbsp;Signal &amp; Line — qualify · kill bad fits · route</div>
-            <div className="intel-flow-row" style={{ color: 'var(--accent-ink)' }}>Your quoting team — estimator-cleared RFQs</div>
+          <div className="joint" aria-hidden="true">
+            <ArrowRight size={20} />
+            <span>We call</span>
           </div>
-        </motion.div>
 
-        <div className="intel-grid">
-          {CARDS.map((card, idx) => {
-            const count = useCountUp(card.countTarget, inView, 2200 + idx * 200)
-            return (
-              <motion.div
-                key={card.label}
-                className="intel-card"
-                initial={{ opacity: 0, y: 24 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: idx * 0.12 }}
-              >
-                <div className="intel-card-header">
-                  <div className={`intel-card-icon ${card.color}`}>
-                    {ICON_SVG[card.color]}
-                  </div>
-                  <span className="intel-card-name">{card.label}</span>
-                </div>
-                <div className="intel-card-body">
-                  <div className="intel-counter">
-                    {count.toLocaleString()}{card.countSuffix}
-                  </div>
-                  <div className="intel-counter-label">{card.countLabel}</div>
-                  <div className="intel-details">
-                    {card.details.map(d => (
-                      <div key={d} className="intel-detail">{d}</div>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            )
-          })}
+          <article className="doc rec" aria-label="Example call notes">
+            <div className="doc-head"><b>Call notes</b><span className="tag">Example</span></div>
+            <dl>
+              <div className="rec-row"><dt>Spoken to</dt><dd>Yes — the founder</dd></div>
+              <div className="rec-row"><dt>Looking</dt><dd>For a facility, now</dd></div>
+              <div className="rec-row"><dt>Making</dt><dd>30 ml facial serum, dropper</dd></div>
+              <div className="rec-row"><dt>First run</dt><dd>10,000 units</dd></div>
+              <div className="rec-row"><dt>Needs</dt><dd>cGMP facility</dd></div>
+              <div className="rec-row"><dt>Timing</dt><dd>First run within three months</dd></div>
+            </dl>
+            <div className="rec-foot">
+              <span className="stamp stamp-call">Brand-confirmed</span>
+              <small>Before you hear the name</small>
+            </div>
+          </article>
+
+          <div className="joint" aria-hidden="true">
+            <ArrowRight size={20} />
+            <span>We check</span>
+          </div>
+
+          <article className="doc rec" aria-label="Example introduction">
+            <div className="doc-head"><b>Introduction</b><span className="tag">Example</span></div>
+            <dl>
+              <div className="rec-row"><dt>To</dt><dd>Your quoting team — nobody else</dd></div>
+              <div className="rec-row pass"><dt>Format</dt><dd><Check size={15} aria-hidden="true" />Serum — you run it</dd></div>
+              <div className="rec-row pass"><dt>Run size</dt><dd><Check size={15} aria-hidden="true" />Clears your minimum</dd></div>
+              <div className="rec-row pass"><dt>Certs</dt><dd><Check size={15} aria-hidden="true" />cGMP — you hold it</dd></div>
+              <div className="rec-row pass"><dt>Timing</dt><dd><Check size={15} aria-hidden="true" />You have room</dd></div>
+            </dl>
+            <div className="rec-foot">
+              <span className="stamp stamp-intro">Introduced</span>
+              <button type="button" className="text-link" onClick={onOpenMemo}>
+                See the memo <ArrowRight size={15} aria-hidden="true" />
+              </button>
+            </div>
+          </article>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          style={{
-            marginTop: '2rem',
-            padding: '1.25rem 1.5rem',
-            background: 'var(--bg3)',
-            border: '1px solid var(--border)',
-            borderRadius: '10px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '1rem',
-            flexWrap: 'wrap',
-          }}
-        >
-          <div>
-            <div style={{ fontFamily: 'var(--mono)', fontSize: '0.7rem', color: 'var(--dim)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '0.3rem' }}>
-              Pipeline
-            </div>
-            <div style={{ fontSize: '0.9rem', color: 'var(--muted)' }}>
-              Continuous monitoring → verified stock-out → decision-maker match → estimator-cleared RFQ routed to your team
-            </div>
-          </div>
-          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-            {['Live monitoring', 'Verified OOS', 'Decision-maker match', 'Estimator-cleared'].map(tag => (
-              <span key={tag} style={{
-                fontFamily: 'var(--mono)',
-                fontSize: '10px',
-                padding: '3px 8px',
-                borderRadius: '20px',
-                background: 'var(--purp-d)',
-                color: 'var(--purp-l)',
-                border: '1px solid var(--purp-b)',
-              }}>{tag}</span>
-            ))}
-          </div>
-        </motion.div>
+        <div className="also">
+          <span className="tag">Also tracked</span>
+          <p>
+            <b>Brands that have sold out and need another run.</b> Proven sellers who already know
+            their run size. A supporting source — new filings are the main one.
+          </p>
+        </div>
+
+        <p className="pull">No cold lists. <span>No guesswork.</span></p>
       </div>
     </section>
+  )
+}
+
+const MEMO_FIELDS: [string, string, string][] = [
+  ['Brand / company', 'Public description of the business. The name can be held back until the brand approves sharing it.', 'public'],
+  ['Who buys', 'Name or role, their authority to decide, and how that was checked.', 'brand'],
+  ['Why now', 'What changed, and whether it is confirmed or was seen once. Dated, with a recheck date.', 'public'],
+  ['What they are sourcing', 'A new launch, a second source, a switch from their current facility — or unknown.', 'brand'],
+  ['Product & format', 'Product, category, dosage or fill form, size, process and variants.', 'brand'],
+  ['Volume & minimum', 'Confirmed range and whether they accept your minimum. Otherwise marked unknown — never estimated.', 'brand'],
+  ['Certifications', 'What the product has to carry, and where that requirement comes from.', 'brand'],
+  ['Formula & allergens', 'Who owns the formula, readiness to transfer, allergens and material exclusions.', 'brand'],
+  ['Packaging', 'Primary and secondary format, who sources components, artwork and label status.', 'brand'],
+  ['Where it ships', 'Selling markets, ship-to, import or export, warehousing.', 'brand'],
+  ['Timing', 'Quote, sample, validation, launch or first-run window — and the source for it.', 'brand'],
+  ['Why it fits your floor', 'The match against the format, minimum, certifications and capacity window you confirmed.', 'facility'],
+  ['Open questions', 'What your estimator should resolve first.', 'unknown'],
+  ['Who approved it', 'Who authorized the introduction, when, and to which contact at your facility.', 'brand'],
+]
+
+const EVIDENCE: Record<string, string> = {
+  public: 'Public record',
+  brand: 'Brand-confirmed',
+  facility: 'Facility-confirmed',
+  unknown: 'Unknown',
+}
+
+const LEFT_OUT = [
+  'A brand that sold out once, presented as a confirmed reorder.',
+  'Guessed volume, minimums, budget, project value or run frequency.',
+  'Unchecked formulas, packaging, certifications, allergens, timing or capacity.',
+  'Private formulas, supplier relationships or contacts the brand hasn’t approved sharing.',
+  'Anything announced but not yet done, presented as done.',
+]
+
+export function MemoModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const closeRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+    closeRef.current?.focus()
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open, onClose])
+
+  return (
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          className="modal-overlay"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          onClick={e => { if (e.target === e.currentTarget) onClose() }}
+        >
+          <motion.div
+            className="modal memo"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="memo-title"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 24 }}
+            transition={{ duration: 0.25, ease: [0.2, 0.7, 0.2, 1] }}
+          >
+            <div className="modal-head">
+              <b id="memo-title"><FileText size={17} aria-hidden="true" style={{ display: 'inline', verticalAlign: '-3px', marginRight: '0.5rem' }} />Pre-introduction memo — sample</b>
+              <div className="modal-actions">
+                <button type="button" className="q-tool" onClick={() => printOnly('print-memo')}>
+                  <Printer size={16} aria-hidden="true" /> Print
+                </button>
+                <button ref={closeRef} type="button" className="modal-x" onClick={onClose} aria-label="Close memo">
+                  <X size={18} aria-hidden="true" />
+                </button>
+              </div>
+            </div>
+            <div className="memo-body">
+              <p className="memo-kicker">The blank memo that comes with every introduction</p>
+              <dl className="memo-meta">
+                <div><dt>Prepared for</dt><dd>Your quoting team and estimator</dd></div>
+                <div><dt>Purpose</dt><dd>Enough checked context to assign the right estimator and prepare for the first conversation — without sharing more about the brand than it has approved.</dd></div>
+              </dl>
+              <p className="memo-rule">
+                Only facts that can be supported go in. Every line carries one of four labels.
+                A good story is never a substitute for evidence.
+              </p>
+              <div className="memo-key" aria-label="Evidence labels">
+                {Object.entries(EVIDENCE).map(([k, v]) => <span key={k} className={`ev ev-${k}`}>{v}</span>)}
+              </div>
+              <table className="memo-table">
+                <thead>
+                  <tr><th scope="col">Field</th><th scope="col">What goes here</th><th scope="col">Typical label</th></tr>
+                </thead>
+                <tbody>
+                  {MEMO_FIELDS.map(([f, d, e]) => (
+                    <tr key={f}>
+                      <td>{f}</td>
+                      <td>{d}</td>
+                      <td><span className={`ev ev-${e}`}>{EVIDENCE[e]}</span></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div className="memo-out">
+                <h3>Deliberately left out</h3>
+                <ul>
+                  {LEFT_OUT.map(x => <li key={x}><X size={15} aria-hidden="true" />{x}</li>)}
+                </ul>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   )
 }
