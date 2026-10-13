@@ -40,7 +40,7 @@ export default function Footer({ onBook }: { onBook: () => void }) {
 
           <div className="tb">
             <div className="tb-k">Terms</div>
-            <div className="tb-v">$3,500 once · 5 introductions · 60 days</div>
+            <div className="tb-v">5 introductions · 60 days · no commission</div>
           </div>
           <div className="tb">
             <div className="tb-k">Guarantee</div>

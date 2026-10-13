@@ -24,7 +24,7 @@ const CHANNELS = [
   },
   {
     name: 'Signal & Line',
-    cost: '$3,500 once — no cut, ever',
+    cost: 'One fee, agreed on the call — no cut, ever',
     catch: 'Five introductions, each spoken to first and checked against your floor. Introductions, not contracts — whether a brand signs is between you and it.',
     ours: true,
   },

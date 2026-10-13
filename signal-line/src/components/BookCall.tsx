@@ -24,21 +24,21 @@ const SHARE_BODY = [
   '- Qualified = actively sourcing, volume clears our minimum, a format our floor runs',
   '- Each brand goes to us and nobody else; any miss is replaced free',
   '- Fewer than five in 60 days: full refund',
-  '- $3,500 USD, one time. No commission on any run.',
+  '- No commission on any run. The fee is agreed on a short call.',
   '- Our time: 30 minutes at onboarding',
   '',
   'https://www.klyvo.ca/#offer',
 ].join('\n')
 
-const SHARE_HREF = `mailto:?subject=${encodeURIComponent('Signal & Line — quote for new brand introductions')}&body=${encodeURIComponent(SHARE_BODY)}`
+const SHARE_HREF = `mailto:?subject=${encodeURIComponent('Signal & Line — terms for new brand introductions')}&body=${encodeURIComponent(SHARE_BODY)}`
 
-const LINE_ITEMS: { no: string; title: string; detail: string; qty: string; amt: string; zero?: boolean; memo?: boolean }[] = [
-  { no: '01', title: 'Qualified brand introductions', detail: 'Actively sourcing · volume clears your minimum · a format your floor runs · each with a written memo', qty: '5', amt: '$3,500.00', memo: true },
-  { no: '02', title: 'Engagement period', detail: 'Counted from onboarding', qty: '60 days', amt: 'Included' },
-  { no: '03', title: 'Exclusivity', detail: 'Each brand goes to your facility and nobody else — no racing other shops to the phone', qty: '—', amt: 'Included' },
-  { no: '04', title: 'Replacement', detail: 'Any introduction that misses the definition above is replaced free', qty: '—', amt: 'Included' },
-  { no: '05', title: 'Onboarding', detail: 'Thirty minutes of your time to map your floor — nothing after that', qty: '30 min', amt: 'Included' },
-  { no: '06', title: 'Commission on any run you win', detail: 'We are not a broker', qty: '—', amt: '$0.00', zero: true },
+const LINE_ITEMS: { no: string; title: string; detail: string; qty: string; zero?: boolean; memo?: boolean }[] = [
+  { no: '01', title: 'Qualified brand introductions', detail: 'Actively sourcing · volume clears your minimum · a format your floor runs · each with a written memo', qty: '5', memo: true },
+  { no: '02', title: 'Engagement period', detail: 'Counted from onboarding', qty: '60 days' },
+  { no: '03', title: 'Exclusivity', detail: 'Each brand goes to your facility and nobody else — no racing other shops to the phone', qty: 'Included' },
+  { no: '04', title: 'Replacement', detail: 'Any introduction that misses the definition above is replaced free', qty: 'Included' },
+  { no: '05', title: 'Onboarding', detail: 'Thirty minutes of your time to map your floor — nothing after that', qty: '30 min' },
+  { no: '06', title: 'Commission on any run you win', detail: 'We are not a broker', qty: 'None', zero: true },
 ]
 
 const EXCLUSIONS: [string, string][] = [
@@ -58,30 +58,29 @@ export function Offer({ onBook, onOpenMemo }: { onBook: () => void; onOpenMemo: 
         <header className="sheet-head">
           <span className="no">05</span><span>The offer</span><span className="rule" />
         </header>
-        <h2 className="h2"><span className="h2-l">One price. Written&nbsp;down.</span> <span className="h2-l">No cut of the&nbsp;run.</span></h2>
+        <h2 className="h2"><span className="h2-l">Every term, written&nbsp;down.</span> <span className="h2-l">No cut of the&nbsp;run.</span></h2>
         <p className="lede">
-          You read quotes all day, so here is ours — every term, the guarantee, and the
-          exclusions, before you ever get on a call.
+          You read quotes all day, so here are our terms — what you get, the guarantee and the
+          exclusions — before you ever get on a call. The fee is agreed on the call.
         </p>
 
         <article className="quote" aria-labelledby="quote-title">
           <div className="q-top">
             <div>
-              <div className="q-title" id="quote-title">QUOTE</div>
+              <div className="q-title" id="quote-title">TERMS</div>
               <div className="q-sub">Standard engagement · new brand introductions</div>
             </div>
             <dl className="q-meta">
-              <dt>Quote no.</dt><dd>SL-STD-01</dd>
+              <dt>Ref.</dt><dd>SL-STD-01</dd>
               <dt>Prepared for</dt><dd>Your facility</dd>
               <dt>Issued by</dt><dd>Signal &amp; Line, Montreal</dd>
               <dt>Date</dt><dd>{date}</dd>
-              <dt>Payment</dt><dd>One time, at signing</dd>
             </dl>
           </div>
 
           <table className="q-table">
             <thead>
-              <tr><th scope="col">Item</th><th scope="col">Description</th><th scope="col">Qty</th><th scope="col">Amount</th></tr>
+              <tr><th scope="col">Item</th><th scope="col">Description</th><th scope="col">Terms</th></tr>
             </thead>
             <tbody>
               {LINE_ITEMS.map(li => (
@@ -101,17 +100,16 @@ export function Offer({ onBook, onOpenMemo }: { onBook: () => void; onOpenMemo: 
                       )}
                     </span>
                   </td>
-                  <td className="q-qty">{li.qty}</td>
-                  <td className={`q-amt ${li.zero ? 'zero' : ''}`}>{li.amt}</td>
+                  <td className={`q-qty ${li.zero ? 'zero' : ''}`}>{li.qty}</td>
                 </tr>
               ))}
             </tbody>
           </table>
 
           <div className="q-total">
-            <span className="lbl">Total</span>
-            <span className="amt">$3,500.00</span>
-            <span className="once">USD · one time</span>
+            <span className="lbl">Fee</span>
+            <span className="amt amt-text">Agreed on the call</span>
+            <span className="once">No retainer · no commission</span>
           </div>
 
           <div className="q-guarantee">
@@ -145,7 +143,7 @@ export function Offer({ onBook, onOpenMemo }: { onBook: () => void; onOpenMemo: 
                 <Printer size={16} aria-hidden="true" /> Print or save as PDF
               </button>
               <a className="q-tool" href={SHARE_HREF}>
-                <Mail size={16} aria-hidden="true" /> Email this quote to a colleague
+                <Mail size={16} aria-hidden="true" /> Email these terms to a colleague
               </a>
             </div>
           </div>
