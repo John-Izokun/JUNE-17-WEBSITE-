@@ -18,7 +18,7 @@ export function printOnly(cls: 'print-quote' | 'print-memo') {
 }
 
 const SHARE_BODY = [
-  'Terms from Signal & Line (klyvo.ca):',
+  'Terms from Signal & Line (www.klyvo.ca):',
   '',
   '- Five qualified brand introductions in 60 days',
   '- Qualified = actively sourcing, volume clears our minimum, a format our floor runs',
@@ -27,7 +27,7 @@ const SHARE_BODY = [
   '- $3,500 USD, one time. No commission on any run.',
   '- Our time: 30 minutes at onboarding',
   '',
-  'https://klyvo.ca/#offer',
+  'https://www.klyvo.ca/#offer',
 ].join('\n')
 
 const SHARE_HREF = `mailto:?subject=${encodeURIComponent('Signal & Line — quote for new brand introductions')}&body=${encodeURIComponent(SHARE_BODY)}`
@@ -132,7 +132,7 @@ export function Offer({ onBook, onOpenMemo }: { onBook: () => void; onOpenMemo: 
             <p className="fine">Certifications, lead times, pricing and final terms are between you and the brand.</p>
           </div>
 
-          <p className="q-printnote">klyvo.ca · john.izokun@klyvo.ca · Signal &amp; Line, Montreal</p>
+          <p className="q-printnote">www.klyvo.ca · john.izokun@klyvo.ca · Signal &amp; Line, Montreal</p>
 
           <div className="q-foot">
             <p>To proceed, book a production review. If your floor isn’t a fit, we’ll tell you on the call.</p>
