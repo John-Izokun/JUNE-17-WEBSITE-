@@ -259,7 +259,7 @@ export default function ScheduleBoard() {
             Open line-days in this window: <strong>{openTotal}</strong>
             {' '}<span className="gain">· <NumberFlow value={quoting} /> with a brand quoting</span>
           </span>
-          <span>Each brand is introduced to this facility only</span>
+          <span>Every brand spoken to before it reaches you</span>
         </div>
       </div>
       <figcaption className="board-note">

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowRight, Check, FileText, Printer, X } from 'lucide-react'
-import { printOnly } from './BookCall'
+import { printOnly } from './print'
 
 interface Props {
   onOpenMemo: () => void
@@ -76,7 +76,7 @@ export default function Intelligence({ onOpenMemo }: Props) {
           <article className="doc rec" aria-label="Example introduction">
             <div className="doc-head"><b>Introduction</b><span className="tag">Example</span></div>
             <dl>
-              <div className="rec-row"><dt>To</dt><dd>Your quoting team — nobody else</dd></div>
+              <div className="rec-row"><dt>To</dt><dd>Your quoting team, on one email thread</dd></div>
               <div className="rec-row pass"><dt>Format</dt><dd><Check size={15} aria-hidden="true" />Serum — you run it</dd></div>
               <div className="rec-row pass"><dt>Run size</dt><dd><Check size={15} aria-hidden="true" />Clears your minimum</dd></div>
               <div className="rec-row pass"><dt>Certs</dt><dd><Check size={15} aria-hidden="true" />cGMP — you hold it</dd></div>

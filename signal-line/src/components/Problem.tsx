@@ -13,19 +13,14 @@ const CHANNELS = [
     catch: 'You come home with a stack of cards. Most are the wrong format, the wrong run size, or the wrong timing for your floor.',
   },
   {
-    name: 'Commission brokers',
-    cost: 'A cut of every run',
-    catch: 'Your margin keeps paying for one introduction, run after run — including the runs your own team quoted and closed.',
-  },
-  {
     name: 'Directories & marketplaces',
     cost: 'A profile, then waiting',
     catch: 'The platform owns the relationship, and a brand that needs product made talks to whoever reached it first.',
   },
   {
     name: 'Signal & Line',
-    cost: 'One fee, agreed on the call — no cut, ever',
-    catch: 'Five introductions, each spoken to first and checked against your floor. Introductions, not contracts — whether a brand signs is between you and it.',
+    cost: 'Only the brands you pick: a fee per brand, or a share of that brand’s first-year orders',
+    catch: 'Every brand is spoken to first and checked against your floor, and you see an unnamed brief before its name. Introductions, not contracts — whether a brand signs is between you and it.',
     ours: true,
   },
 ]
