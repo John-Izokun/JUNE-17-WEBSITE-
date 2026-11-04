@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { FORMATS, INDUSTRIES, indId, type Format } from './Nav'
+import { FORMATS, INDUSTRIES, indId, type Format } from './formats'
 
 const STROKE = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.6, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const }
 

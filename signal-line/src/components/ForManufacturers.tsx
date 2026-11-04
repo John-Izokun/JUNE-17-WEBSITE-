@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import NumberFlow from '@number-flow/react'
 import { Check, X } from 'lucide-react'
-import { FORMATS, type Format } from './Nav'
+import { FORMATS, type Format } from './formats'
 
 const MINIMUMS = [2500, 5000, 10000, 25000]
 

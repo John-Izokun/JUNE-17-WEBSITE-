@@ -1,74 +1,45 @@
-import { ArrowRight } from 'lucide-react'
-import { BrandMark } from './Nav'
+import { EMAIL, MARKETS } from '../site'
+import { Wordmark } from './Nav'
 
 export default function Footer({ onBook }: { onBook: () => void }) {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="foot">
+    <footer className="site-foot">
       <div className="wrap">
-        <div className="for-brands" id="for-brands">
-          <span className="k">For brands</span>
-          <p>
-            <b>Building a brand and need someone to make it?</b> Tell us the format, roughly how
-            much you need and any certifications it must carry. We’ll tell you whether we can
-            introduce you to a facility that runs it — at no cost to you.
-          </p>
-          <a className="btn btn-ghost btn-sm" href="mailto:john.izokun@klyvo.ca?subject=Looking%20for%20a%20manufacturer">
-            Tell us what you’re making
-            <ArrowRight size={16} aria-hidden="true" />
-          </a>
-        </div>
-
-        <div className="tblock">
-          <div className="tb tb-brand">
-            <div className="tb-k">Signal &amp; Line</div>
-            <div className="tb-v"><BrandMark />New brands for contract manufacturers</div>
+        <div className="foot-grid">
+          <div>
+            <div className="foot-brand"><Wordmark /></div>
+            <p className="foot-tag">
+              Introductions between businesses that need each other, qualified on both sides and
+              made on one email thread.
+            </p>
+            <p className="foot-contact">
+              Montreal, Canada<br />
+              <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+            </p>
           </div>
-          <div className="tb">
-            <div className="tb-k">Drawn for</div>
-            <div className="tb-v">Contract manufacturers &amp; co-packers</div>
+          <div>
+            <div className="foot-h">Markets</div>
+            <ul className="foot-list">
+              {MARKETS.map(m => <li key={m.slug}><a href={m.href}>{m.name}</a></li>)}
+            </ul>
           </div>
-          <div className="tb">
-            <div className="tb-k">Location</div>
-            <div className="tb-v">Montreal, Canada</div>
-          </div>
-          <div className="tb">
-            <div className="tb-k">Contact</div>
-            <div className="tb-v"><a href="mailto:john.izokun@klyvo.ca">john.izokun@klyvo.ca</a></div>
-          </div>
-
-          <div className="tb">
-            <div className="tb-k">Terms</div>
-            <div className="tb-v">5 introductions · 60 days · no commission</div>
-          </div>
-          <div className="tb">
-            <div className="tb-k">Guarantee</div>
-            <div className="tb-v">Fewer than five — full refund</div>
-          </div>
-          <div className="tb">
-            <div className="tb-k">Sheet · Rev</div>
-            <div className="tb-v mono">1 of 1 · A</div>
-          </div>
-          <div className="tb">
-            <div className="tb-k">Next step</div>
-            <div className="tb-v">
-              <button type="button" className="text-link" onClick={onBook}>Book a production review</button>
-            </div>
+          <div>
+            <div className="foot-h">Signal &amp; Line</div>
+            <ul className="foot-list">
+              <li><a href="/#how-it-works">How an introduction works</a></li>
+              <li><a href="/#results">Partner results</a></li>
+              <li><a href="/#questions">Questions</a></li>
+              <li><button type="button" className="foot-btn" onClick={onBook}>Book an intro call</button></li>
+              <li><a href={`mailto:${EMAIL}`}>Email John</a></li>
+            </ul>
           </div>
         </div>
-
-        <nav className="foot-links" aria-label="Footer">
-          <a href="#problem">The problem</a>
-          <a href="#source">Where brands come from</a>
-          <a href="#how-it-works">How it works</a>
-          <a href="#fit">For manufacturers &amp; co-packers</a>
-          <a href="#offer">The offer</a>
-          <a href="#industries">Industries</a>
-          <a href="#for-brands">For brands</a>
-          <a href="#questions">Questions</a>
-          <span style={{ marginLeft: 'auto', color: 'var(--ink-3)' }}>© {year} Signal &amp; Line</span>
-        </nav>
+        <div className="foot-bot">
+          <span>Signal &amp; Line · John Izokun · Montreal</span>
+          <span>klyvo.ca · © {year}</span>
+        </div>
       </div>
     </footer>
   )

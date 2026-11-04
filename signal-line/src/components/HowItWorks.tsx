@@ -25,9 +25,9 @@ const STATIONS = [
   },
   {
     who: 'you',
-    whoLabel: 'You quote',
-    title: 'Introduce — to you alone',
-    body: 'The brand reaches your quoting team with a written memo, and nobody else gets it. Pricing, lead times and final terms are between you and them.',
+    whoLabel: 'You pick, then quote',
+    title: 'Pick from the brief, then meet the brand',
+    body: 'You see an unnamed brief first and choose the brands you want. Each reaches your quoting team with a written memo, on one email thread. Pricing, lead times and final terms are between you and them.',
   },
 ]
 

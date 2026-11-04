@@ -6,10 +6,10 @@ interface HeroProps {
 }
 
 const FACTS = [
-  { v: '5', l: 'qualified introductions in 60 days' },
-  { v: '1', l: 'facility per brand — yours alone' },
-  { v: '$0', l: 'cut of any run you win' },
-  { v: '30 min', l: 'of your time, once, at onboarding' },
+  { v: 'Brief first', l: 'you see what a brand needs before you hear its name' },
+  { v: 'You pick', l: 'pay only for the brands you choose to meet' },
+  { v: '30 min', l: 'of your time, once, to map your floor' },
+  { v: '0', l: 'brands forwarded that miss your format or minimum' },
 ]
 
 export default function Hero({ onBook }: HeroProps) {
@@ -18,7 +18,7 @@ export default function Hero({ onBook }: HeroProps) {
       <div className="wrap">
         <div className="hero-top">
           <div>
-            <p className="eyebrow"><span className="dot" />For contract manufacturers &amp; co-packers</p>
+            <p className="eyebrow"><span className="dot" />Manufacturing desk · for contract manufacturers &amp; co-packers</p>
             <h1 className="h1">
               We fill your open{' '}<br className="lock" />capacity with<br />
               <span className="payoff">brands that need{' '}<br className="lock" />production now.</span>
@@ -33,7 +33,7 @@ export default function Hero({ onBook }: HeroProps) {
             </p>
             <div className="hero-ctas">
               <button type="button" className="btn btn-primary" onClick={onBook}>
-                Book a production review
+                Book an intro call
                 <ArrowRight size={18} aria-hidden="true" />
               </button>
               <a className="btn btn-ghost" href="#offer">See the terms</a>
