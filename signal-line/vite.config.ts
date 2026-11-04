@@ -2,7 +2,10 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // One HTML file per page. Adding a market page: add its .html file here too.
-const PAGES = ['index', 'manufacturing', 'nurse-staffing', 'recruiting', 'connectivity', 'construction']
+const PAGES = [
+  'index', 'manufacturing', 'packaging', 'nurse-staffing', 'hospital-staffing',
+  'recruiting', 'trades-staffing', 'driver-staffing', 'connectivity', 'construction',
+]
 
 export default defineConfig({
   plugins: [react()],

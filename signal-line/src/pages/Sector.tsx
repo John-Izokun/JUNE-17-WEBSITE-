@@ -1,6 +1,6 @@
 // One template for every market page except manufacturing. The words live in src/sectors.ts.
 import { ArrowRight, Check } from 'lucide-react'
-import type { Doc, Sector as SectorData } from '../sectors'
+import type { Board, Doc, Sector as SectorData } from '../sectors'
 import { mailto } from '../site'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
@@ -27,6 +27,45 @@ function SourceDoc({ doc }: { doc: Doc }) {
         <small>{doc.foot}</small>
       </div>
     </article>
+  )
+}
+
+const STATUS_LABEL = { intro: 'Introduced', brief: 'Brief ready', new: 'New signal', drop: 'Dropped' } as const
+
+function SignalBoard({ b }: { b: Board }) {
+  return (
+    <figure className="sboard-wrap">
+      <div className="sboard">
+        <div className="board-bar">
+          <span className="board-title">{b.title}</span>
+          <span className="board-tag">Example</span>
+          <span className="board-range">{b.range}</span>
+          <div className="board-legend" aria-hidden="true">
+            <span className="lg lg-new"><i />New signal</span>
+            <span className="lg lg-brief"><i />Brief ready</span>
+            <span className="lg lg-intro"><i />Introduced</span>
+          </div>
+        </div>
+        <div className="sb-table" role="table" aria-label={`${b.title} — example`}>
+          <div className="sb-row sb-head" role="row">
+            {b.cols.map(c => <span key={c} role="columnheader">{c}</span>)}
+            <span role="columnheader">Status</span>
+          </div>
+          {b.rows.map((r, i) => (
+            <div key={i} className={`sb-row sb-${r.status}`} role="row">
+              {r.cells.map((c, j) => (
+                <span key={j} role="cell" data-k={b.cols[j]} className={j === 0 ? 'sb-first' : undefined}>{c}</span>
+              ))}
+              <span role="cell" className="sb-status">
+                <span className={`sb-chip sb-chip-${r.status}`} title={STATUS_LABEL[r.status]}>{r.note}</span>
+              </span>
+            </div>
+          ))}
+        </div>
+        <div className="board-foot"><span>{b.foot}</span><span>Every one spoken to before it reaches you</span></div>
+      </div>
+      <figcaption className="board-note">{b.caption}</figcaption>
+    </figure>
   )
 }
 
@@ -60,6 +99,10 @@ export default function Sector({ s }: { s: SectorData }) {
                 </div>
                 <p className="hero-call">{s.hero.note}</p>
               </div>
+            </div>
+
+            <div className="board-zone">
+              <SignalBoard b={s.board} />
             </div>
 
             <dl className="sides" aria-label="Both sides of this market">
@@ -102,9 +145,26 @@ export default function Sector({ s }: { s: SectorData }) {
           </div>
         </section>
 
-        <section className="sheet sheet--paper" id="how-it-works">
+        <section className="sheet sheet--paper" id="coverage">
           <div className="wrap">
-            <SheetHead no="02">How it works</SheetHead>
+            <SheetHead no="02">What we cover</SheetHead>
+            <h2 className="h2">{s.coverage.h2}</h2>
+            <p className="lede">{s.coverage.lede}</p>
+            <div className="cover-grid">
+              {s.coverage.items.map((it, i) => (
+                <div key={it.b} className="cover">
+                  <span className="cover-n">{String(i + 1).padStart(2, '0')}</span>
+                  <b>{it.b}</b>
+                  <span>{it.s}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="sheet" id="how-it-works">
+          <div className="wrap">
+            <SheetHead no="03">How it works</SheetHead>
             <div className="travel">
               <div className="travel-side">
                 <h2 className="h2"><span className="h2-l">{s.steps.h2a}</span> <span className="h2-l">{s.steps.h2b}</span></h2>
@@ -130,7 +190,7 @@ export default function Sector({ s }: { s: SectorData }) {
 
         <Terms
           id="terms"
-          no="03"
+          no="04"
           h2a={s.terms.h2a}
           h2b={s.terms.h2b}
           lede={s.terms.lede}
@@ -141,14 +201,14 @@ export default function Sector({ s }: { s: SectorData }) {
         <FreeSide k={s.freeSide.k} b={s.freeSide.b} p={s.freeSide.p} cta={s.freeSide.cta} href={freeHref} id="free-side" />
 
         <Faq
-          no="04"
+          no="05"
           h2="The questions you’re already asking."
           lede="Straight answers, before any call."
           items={s.faqs}
           founder="I run Signal & Line from Montreal, and I put my name on these terms. If anything on this page isn’t clear, email me — I’ll answer it myself."
         />
 
-        <Close no="05" h2={s.close.h2} p={s.close.p} onBook={openBooking} />
+        <Close no="06" h2={s.close.h2} p={s.close.p} onBook={openBooking} />
       </main>
       <Footer onBook={openBooking} />
       <BookingModal open={booking} onClose={closeBooking} />

@@ -21,7 +21,7 @@ export default function Footer({ onBook }: { onBook: () => void }) {
           </div>
           <div>
             <div className="foot-h">Markets</div>
-            <ul className="foot-list">
+            <ul className="foot-list foot-list--cols">
               {MARKETS.map(m => <li key={m.slug}><a href={m.href}>{m.name}</a></li>)}
             </ul>
           </div>
