@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowRight, ChevronDown, Menu, X } from 'lucide-react'
-import { MARKETS } from '../site'
+import { GROUPS, MARKETS } from '../site'
 
 interface NavProps {
   current: string // 'home' or a market slug
@@ -91,17 +91,24 @@ export default function Nav({ current, onBook }: NavProps) {
                     transition={{ duration: 0.16 }}
                   >
                     <span className="dd-head">Where we make introductions</span>
-                    {MARKETS.map(m => (
-                      <a
-                        key={m.slug}
-                        href={m.href}
-                        aria-current={current === m.slug ? 'page' : undefined}
-                        onClick={() => setDdOpen(false)}
-                      >
-                        <b>{m.name}</b>
-                        <span>{m.provides}</span>
-                      </a>
-                    ))}
+                    <div className="dd-groups">
+                      {GROUPS.map(g => (
+                        <div key={g} className="dd-group">
+                          <span className="dd-group-k">{g}</span>
+                          {MARKETS.filter(m => m.group === g).map(m => (
+                            <a
+                              key={m.slug}
+                              href={m.href}
+                              aria-current={current === m.slug ? 'page' : undefined}
+                              onClick={() => setDdOpen(false)}
+                            >
+                              <b>{m.name}</b>
+                              <span>{m.provides}</span>
+                            </a>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -145,18 +152,22 @@ export default function Nav({ current, onBook }: NavProps) {
                 <ArrowRight size={18} aria-hidden="true" />
               </a>
             )}
-            <div className="m-label">Markets</div>
-            {MARKETS.map(m => (
-              <a
-                key={m.slug}
-                className="m-link m-market"
-                href={m.href}
-                aria-current={current === m.slug ? 'page' : undefined}
-                onClick={() => setMenuOpen(false)}
-              >
-                {m.name}
-                <ArrowRight size={18} aria-hidden="true" />
-              </a>
+            {GROUPS.map(g => (
+              <div key={g}>
+                <div className="m-label">{g}</div>
+                {MARKETS.filter(m => m.group === g).map(m => (
+                  <a
+                    key={m.slug}
+                    className="m-link m-market"
+                    href={m.href}
+                    aria-current={current === m.slug ? 'page' : undefined}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {m.name}
+                    <ArrowRight size={18} aria-hidden="true" />
+                  </a>
+                ))}
+              </div>
             ))}
             <div className="m-label">On this page</div>
             {links.map(l => (
