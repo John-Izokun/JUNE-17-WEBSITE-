@@ -83,7 +83,7 @@ const FAQS: Qa[] = [
   ['Where do the businesses with a need come from?', 'From public records that show a need the moment it appears: new trademark applications, the staffing hours nursing homes report to Medicare, hospitals’ contract-labor spend, employers’ hiring filings and labor certifications, carriers’ fleet updates, and the requests schools and rural clinics post before they buy. Then we confirm the need with them directly.'],
   ['How do you qualify the providers?', 'What they make or cover, the size of work they take, capacity inside the window, location, and any licence, certification or bond the market requires. A provider only sees briefs that fit what it told us.'],
   ['What happens after an introduction?', 'Both sides get one email with the context already shared. From there, pricing, terms and the work belong to the two of them. We don’t sit in the middle of the deal.'],
-  ['Who pays?', 'The provider — the side that gains a client. The business with the need pays nothing. Fees are agreed before the first introduction and set out in writing; we don’t publish them, because they depend on the market and the size of the work.'],
+  ['How are fees set?', 'Each side’s terms are agreed before the first introduction and set out in writing. We don’t publish them, because they depend on the market and the size of the work.'],
   ['Is a deal guaranteed?', 'No. We control who reaches you and what they’ve confirmed, not whether two businesses agree terms. Where a market carries a written guarantee — a replacement, a refund, a delivery window — it’s on that market’s page and in your terms.'],
   ['What if an introduction isn’t what you described?', 'If it materially differs from its brief, we replace the introduction at no cost.'],
   ['Do you work with competing providers?', 'Yes. An unnamed brief can go to more than one provider it fits; the introduction goes to the one that picks it and agrees the terms. If you need a category or territory to yourself, ask, and we’ll tell you plainly whether we can do it.'],
@@ -150,8 +150,8 @@ export default function Home() {
             <SheetHead no="01">The markets we route</SheetHead>
             <h2 className="h2">Every market has someone with a need and someone ready to meet it. We sit on the line between them.</h2>
             <p className="lede">
-              Nine desks, one method. The provider pays for the introduction; the business with the need
-              never does.
+              Nine desks, one method. Both sides are spoken to before any introduction, and the terms are
+              set out in writing first.
             </p>
             <div className="mkt-table" role="table" aria-label="Markets">
               <div className="mkt-row mkt-head" role="row">
