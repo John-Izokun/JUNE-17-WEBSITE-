@@ -137,8 +137,8 @@ export default function Home() {
                 <dd className="lbl">One thread, both sides, full context</dd>
               </div>
               <div className="sl-stat">
-                <dt className="n">$0</dt>
-                <dd className="lbl">For the side with the need</dd>
+                <dt className="n">0 lists</dt>
+                <dd className="lbl">Only people who’ve said yes to meeting you</dd>
               </div>
             </dl>
           </div>
