@@ -863,7 +863,7 @@ const PACKAGING: Sector = {
     caption: 'Example board. Brands are described, never named, until the introduction.',
   },
   sides: [
-    { k: 'Who pays', v: 'Packaging suppliers, label printers and 3PL fulfillment warehouses' },
+    { k: 'Who it’s for', v: 'Packaging suppliers, label printers and 3PL fulfillment warehouses' },
     { k: 'Who needs it', v: 'New consumer brands preparing a first run. They pay nothing.' },
     { k: 'Categories', v: 'Supplements · skincare · haircare · cosmetics · personal care · food & beverage' },
   ],
@@ -958,7 +958,7 @@ const PACKAGING: Sector = {
         { title: 'Onboarding', detail: 'Thirty minutes to map what you supply', value: '30 min' },
       ],
       fee: 'Agreed on the call',
-      feeNote: 'The brand pays nothing',
+      feeNote: 'In writing before the first introduction',
       exclusions: [
         ['Not your pricing.', 'We never touch your pricing or your margin.'],
         NOT_A_LIST('brand'),
@@ -970,7 +970,7 @@ const PACKAGING: Sector = {
   freeSide: {
     k: 'For brands',
     b: 'Launching a product?',
-    p: 'Tell us what you’re making, how many units and when. We’ll introduce packaging and fulfillment partners that fit, at no cost to you.',
+    p: 'Tell us what you’re making, how many units and when. We’ll introduce packaging and fulfillment partners that fit.',
     cta: 'Tell us what you’re launching',
     subject: 'Packaging and fulfillment for our launch',
   },
@@ -979,7 +979,6 @@ const PACKAGING: Sector = {
     ['Do I learn the brand’s name before I commit?', 'You see the product, format, units and timing first. The name comes with the introduction.'],
     ['Is an order guaranteed?', 'No. We control who reaches you and what they’ve confirmed, not whether a brand orders.'],
     ['What do you cover?', 'Primary packaging (bottles, jars, tubes, pouches and droppers), labels and cartons, and 3PL fulfillment: storage, pick-pack and shipping.'],
-    ['What does the brand pay?', 'Nothing. The supplier pays for the introduction.'],
     INTRO_CALL('what you supply and your minimums', 'which brands we’re seeing'),
   ],
   close: {

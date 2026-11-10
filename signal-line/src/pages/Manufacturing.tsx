@@ -26,7 +26,7 @@ const TERMS: TermsDoc = {
     { title: 'Onboarding', detail: 'Thirty minutes to map your formats, run sizes, minimums and certifications', value: '30 min' },
   ],
   fee: 'Agreed on the call',
-  feeNote: 'The brand pays nothing',
+  feeNote: 'In writing before the first introduction',
   guarantee: {
     b: 'Replacement: if an introduced brand materially differs from its brief, we replace the introduction at no cost.',
     span: 'The brief is what you said yes to: product, format, run size, certifications and timing.',
@@ -48,7 +48,6 @@ const SHARE_BODY = [
   '- Pay per brand picked, or results-only: a share of what that brand pays us in its first 12 months',
   '- Terms in writing before the first introduction; the fee is agreed on a short call',
   '- An introduction that materially differs from its brief is replaced at no cost',
-  '- The brand pays nothing',
   '',
   'https://www.klyvo.ca/manufacturing#offer',
 ].join('\n')
@@ -60,7 +59,7 @@ const FAQS: Qa[] = [
   ['Why would a brand that sold out switch manufacturers?', 'Often it doesn’t — and then we don’t introduce it. We only bring you a reorder brand that has told us it’s looking: for example, because its current maker can’t fit the run in time, or it wants a second source.'],
   ['What does “qualified” actually mean?', 'Three things: the brand is actively sourcing, the volume clears your minimum, and the format is one your floor can run. If an introduction materially misses its brief, we replace it at no cost.'],
   ['What do I actually receive with an introduction?', 'A written memo: who the brand is, who buys, what they are making, volume, certifications, timing and why it fits your floor — every line labeled with how it was confirmed, and unknowns marked as unknown.', true],
-  ['How do you get paid?', 'You choose: a flat fee for each brand you pick, or results-only, a share of what that brand pays you in its first 12 months. The brand pays nothing. The terms are set out in writing before the first introduction.'],
+  ['How do you get paid?', 'You choose: a flat fee for each brand you pick, or results-only, a share of what that brand pays you in its first 12 months. The terms are set out in writing before the first introduction.'],
   ['Are you guaranteeing I win the work?', 'No — and be careful of anyone who does. We control who reaches your inbox, not whether two businesses agree on terms. Certifications, lead times and pricing are between you and the brand.'],
   ['What happens to my client list?', 'You list your current clients at onboarding so we can exclude them. We never contact a brand you already make product for.'],
   ['What happens on the intro call?', 'A short call with John Izokun, the founder. You walk us through what your floor runs — formats, run sizes, minimums, certifications — and we tell you whether the brands we’re seeing fit it. If they don’t, we say so.'],
@@ -96,7 +95,7 @@ export default function Manufacturing() {
           id="for-brands"
           k="For brands"
           b="Building a brand and need someone to make it?"
-          p="Tell us the format, roughly how much you need and any certifications it must carry. We’ll tell you whether we can introduce you to a facility that runs it — at no cost to you."
+          p="Tell us the format, roughly how much you need and any certifications it must carry. We’ll tell you whether we can introduce you to a facility that runs it."
           cta="Tell us what you’re making"
           href={mailto('Looking for a manufacturer')}
         />
